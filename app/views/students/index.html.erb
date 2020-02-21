@@ -1,0 +1,28 @@
+<div>
+  <h1>
+    Students
+  </h1>
+</div>
+<div>
+  <table>
+    <caption></caption>
+    <th scope="col">Name</th>
+    <th scope="col">Surname</th>
+    <th scope="col">Fiscal Code</th>
+    <th scope="col">Birth date</th>
+    <th scope="col">Enrollment date</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.name %></td>
+        <td><%= student.surname %></td>
+        <td><%= student.fiscal_code %></td>
+        <td><%= student.birth_date&.strftime("%d/%m/%Y") %>
+        <td><%= student.enrollment_date&.strftime("%d/%m/%Y") %>
+        <td><%= button_to 'Show', student_path(student), method: :get %></td>
+        <td><%= button_to "Edit", edit_student_path(student), method: :get %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

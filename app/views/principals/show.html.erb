@@ -1,0 +1,22 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @principal.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Principal page</p>
+    <li class="active"><%= link_to " Home", principal_path(@principal), class: 'mdi mdi-view-dashboard' %></li>
+  </ul>
+<% end %>
+<div class="row">
+  <div class="col-md-2" style="padding-right: 0px">
+    <div class="avatar" style="position: relative; top: 0px; border-radius: 0px">
+      <img src="<%= image_url('avatar.png') %>" alt="Avatar">
+    </div>
+  </div>
+  <div class="col-md-4" style="text-align:left; padding-left:0px">
+  Name: <%= @principal.to_s %> <br>
+  E-mail: <%= @principal.user.email %> <br>
+  Role: Principal <br>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<h1>All teachers!</h1>
+<table>
+  <caption></caption>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Subjects</th>
+    <th scope="col">Classes</th>
+    <th scope="col"></th>
+  </tr>
+
+  <% @teachers.each do |teacher| %>
+    <tr>
+      <td><%= teacher.to_s %></td>
+      <td><%= teacher.subjects.map(&:to_s).join(', ') %></td>
+      <td><%= teacher.school_classes.map(&:class_to_s).join(', ') %></td>
+      <td><%= link_to '<button>Show</button>'.html_safe, teacher_path(teacher) %></td>
+    </tr>
+  <% end %>
+</table>

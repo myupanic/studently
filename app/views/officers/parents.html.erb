@@ -1,0 +1,65 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @officer.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Officer page</p>
+    <li><%= link_to " Home", officer_path(@officer), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li><%= link_to " Students", officer_enrollment_url(@officer), class: 'mdi mdi-folder-account-outline', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Parents", officer_parents_url(@officer), class: 'mdi mdi-human-male-girl', data: { turbolinks: false } %></li>
+    <li><%= link_to " Class composition", officer_classes_url(@officer), class: 'mdi mdi-account-group', data: { turbolinks: false } %></li>
+    <li><%= link_to " Communications", officer_communications_url(@officer), class: 'mdi mdi-text-to-speech', data: { turbolinks: false } %></li>
+    <li><%= link_to " Timetables", officer_timetables_url(@officer), class: 'mdi mdi-timetable', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+
+<div style="overflow: auto">
+  <table class="table table-striped table-sm">
+    <caption></caption>
+    <tr>
+      <th scope="col">Parent</th>
+      <th scope="col">Child / Children</th>
+      <th scope="col">Access Status</th>
+      <th scope="col">Button</th>
+    </tr>
+    <% @parents.each do |parent| %>
+    <tr>
+      <td style="padding-top: 2.9%"><%= parent.name %> <%= parent.surname %></td>
+      <td style="padding-top: 2.9%">
+        <ul class="list-unstyled">
+        <% parent.students.each do |child| %>
+          <li><%= child.name %> <%= child.surname %></li>
+          <% end %>
+        </ul>
+      </td>
+      <td id="access-<%= parent.id %>">
+        <% if parent.access_enabled == true %>
+          <p style="color: green; margin-top: 6.5%">Enabled</p>
+        <% else %>
+          <p style="color: red; margin-top: 6.5%">Disabled</p>
+        <% end %>
+      </td>
+      <td id="button-access-<%= parent.id %>">
+      <% if parent.access_enabled == true %>
+        <button class="btn btn-success" style="margin-top: 0; width: 100%" disabled>Enable</button>
+      <% else %>
+        <button class="button-enable btn btn-success" style="margin-top: 0; width: 100%" enabled id="<%= parent.id %>" onclick="postEnable(this.id)" >Enable</button>
+      <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>
+
+<script type="text/javascript">
+  function postEnable(parentID) {
+      $.ajax({
+          type: 'POST',
+          url: "parents/" + parentID + "/enable",
+          contentType: "text/javascript",
+          success: function(data) {
+          }
+      });
+  }
+</script>

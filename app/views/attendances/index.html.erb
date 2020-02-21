@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Attendances</h1>
+
+<table>
+  <caption></caption>
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Type</th>
+      <th scope="col">Enters at</th>
+      <th scope="col">Exits at</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attendances.each do |attendance| %>
+      <tr>
+        <td><%= attendance.date %></td>
+        <td><%= attendance.absence_type %></td>
+        <td><%= attendance.enters_at %></td>
+        <td><%= attendance.exits_at %></td>
+        <td><%= link_to 'Show', attendance %></td>
+        <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
+        <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Attendance', new_attendance_path %>

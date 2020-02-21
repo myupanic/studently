@@ -1,0 +1,2 @@
+$("#lectures-body").html("<%= j render partial: 'lectures/lecture', collection: @lectures.sort_by(&:start_time) %>");
+$("#new-lecture").replaceWith('<%= j link_to ' Create Lecture', new_lecture_path(params: { teacher_id: @teacher.id, school_class_id: @school_class.id }), {remote: true, id: "new-lecture", 'data-toggle' =>  "modal", 'data-target' => '#lecture-form-modal', class: 'btn btn-success mdi mdi-plus-circle'} %>\n')

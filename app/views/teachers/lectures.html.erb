@@ -1,0 +1,72 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @teacher.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Teacher page</p>
+    <li><%= link_to " Home", teacher_path(@teacher), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Lectures", teacher_lectures_url, class:'mdi mdi-teach', data: { turbolinks: false } %></li>
+    <li><%= link_to " Marks", teacher_marks_url, class: 'mdi mdi-bookmark', data: { turbolinks: false } %></li>
+    <li><%= link_to " Assignments", teacher_assignments_url, class: 'mdi mdi-book-open', data: { turbolinks: false } %></li>
+    <li><%= link_to " Materials", teacher_materials_url, class: 'mdi mdi-library-books' %></li>
+    <li><%= link_to " Notes", teacher_notes_url(@teacher), class: 'mdi mdi-email-alert', data: { turbolinks: false } %></li>
+    <li><%= link_to " Timetables", teacher_timetables_url(@teacher), class: 'mdi mdi-timetable', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+
+<% content_for :navbar do %>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <%= link_to ' Create Lecture', new_lecture_path(params: { teacher_id: @teacher.id, school_class_id: @school_class.id }), {remote: true, id: "new-lecture", 'data-toggle' =>  "modal", 'data-target' => '#lecture-form-modal', class: 'btn btn-success mdi mdi-plus-circle'}  %>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto navbar-right">
+    <li class="nav-item">
+      <%= select_tag :school_class_select,
+                     options_for_select(@teacher.school_classes.map{ |sc| [sc.class_to_s, sc.id] }), class: "custom-select", style:"width:100px;"%>
+    </li>
+  </ul>
+<% end %>
+
+<div style="overflow: auto">
+<table id="lectures" data-sortable="true" class="table table-striped table-sm">
+  <caption></caption>
+  <thead>
+  <tr>
+    <th scope="col" style="width: 17%">Lecture</th>
+    <th scope="col" style="width: 12%">Subject</th>
+    <th scope="col" style="width: 10%">Class</th>
+    <th scope="col" style="width: 20%">Topics</th>
+    <th scope="col" style="width: 17%">Date</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody id="lectures-body">
+  <%= render partial: 'lectures/lecture', collection: @lectures.sort_by(&:start_time) %>
+  </tbody>
+</table>
+</div>
+
+<div id="new-lecture">
+</div>
+
+<script type="text/javascript">
+    function loadLectures(){
+        $.ajax({
+            type: 'GET',
+            url: "/teachers/<%= @teacher.id %>/lectures/" + document.getElementById("school_class_select").value,
+            contentType: "text/javascript",
+        }).done(function(response){
+        });
+    }
+    $(document).ready(function() {
+        document.getElementById('school_class_select').value = <%= @school_class.id %>
+        document.getElementById("school_class_select").onchange = loadLectures;
+    });
+
+</script>
+
+<%= render partial: 'lectures/modal_form' %>

@@ -1,0 +1,28 @@
+<div>
+    <h1>
+        Marks
+    </h1>
+</div>
+<div>
+<table>
+<caption></caption>
+<th scope="col">Teacher</th>
+<th scope="col">Mark</th>
+<th scope="col">Subject</th>
+<th scope="col">Student</th>
+<th scope="col">Date</th>
+<th scope="col">Notes</th>
+<th scope="col"></th>
+<% @marks.each do |mark| %>
+    <tr>
+        <td><%= mark.teacher.surname %> <%= mark.teacher.name %></td>
+        <td><%= mark.mark %></td>
+        <td><%= mark.subject %></td>
+        <td><%= mark.student.surname %> <%= mark.student.name %></td>
+        <td><%= mark.date.to_date.strftime("%d/%m/%Y") %>
+        <td><%= mark.notes %></td>
+        <td><%= button_to "Edit", edit_mark_path(mark), :method => "get" %></td>
+    </tr>
+<% end %>
+</table>
+</div>

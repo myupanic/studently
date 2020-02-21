@@ -1,0 +1,42 @@
+<% content_for :sidebar do %>
+  <div class="sidebar-header">
+    <h3>Welcome <%= @administrator.to_s %>!</h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <p>Administrator page</p>
+    <li><%= link_to " Home", administrator_path(@administrator), class: 'mdi mdi-view-dashboard', data: { turbolinks: false } %></li>
+    <li class="active"><%= link_to " Users", administrator_users_url(@administrator), class: 'mdi mdi-account-multiple', data: { turbolinks: false } %></li>
+    <li><%= link_to " Add user", administrator_add_user_url(@administrator), class: 'mdi mdi-account-plus', data: { turbolinks: false } %></li>
+  </ul>
+<% end %>
+
+<body>
+<div style="overflow: auto">
+  <table class="table table-striped table-sm">
+    <caption></caption>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Permissions</th>
+    </tr>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.email %></td>
+      <td><%= user.name %></td>
+      <td><%= user.surname %></td>
+      <td>
+        <ul class="list-unstyled">
+        <% user.roles.each do |role| %>
+          <li><%= role %></li>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+  </div>
+</body>

@@ -1,0 +1,8 @@
+<div>
+    Teacher: <%= @mark.teacher.surname %> <%= @mark.teacher.name%>
+    Mark: <%= @mark.mark %>
+    Subject: <%= @mark.subject %>
+    Student: <%= @mark.student.surname %> <%= @mark.student.name %>
+    Mark date: <%= @mark.date.to_date.strftime("%d/%m/%Y") %>
+    Notes: <%= @mark.notes %>
+</div>

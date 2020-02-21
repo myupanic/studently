@@ -1,0 +1,32 @@
+<div>
+  <h1>
+    Lectures
+  </h1>
+</div>
+<div>
+  <table>
+    <caption></caption>
+    <th scope="col">Name</th>
+    <th scope="col">Start time</th>
+    <th scope="col">End time</th>
+    <th scope="col">Topics</th>
+    <th scope="col">Subject</th>
+    <th scope="col">Duration</th>
+    <th scope="col">Teacher</th>
+    <th scope="col">Class</th>
+    <th scope="col"></th>
+    <% @lectures.each do |lecture| %>
+      <tr>
+        <td><%= lecture.name%></td>
+        <td><%= lecture.start_time&.to_date&.strftime("%d/%m/%Y") %></td>
+        <td><%= lecture.end_time&.to_date&.strftime("%d/%m/%Y") %></td>
+        <td><%= lecture.topics %></td>
+        <td><%= lecture.subject %>
+        <td><%= lecture.duration&.to_s %></td>
+        <td><%= lecture.teacher&.to_s %></td>
+        <td><%= lecture.school_class&.class_to_s %></td>
+        <td><%= button_to "Edit", edit_lecture_path(lecture), method: :get %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

@@ -1,0 +1,27 @@
+<%= form_with url: officers_path do |f| %>
+  <div>
+    <%= f.label "Officer"%>
+  </div>
+  <div>
+    <%= f.label "Name"%>
+    <%= f.text_field :name, class: 'form-control', required: '' %>
+  </div>
+  <br />
+  <div>
+    <%= f.label "Surname"%>
+    <%= f.text_field :surname, class: 'form-control', required: '' %>
+  </div>
+  <br />
+  <div>
+    <%= f.label "E-mail"%>
+    <%= f.email_field :email, class: 'form-control', required: '' %>
+  </div>
+  <br />
+  <br /><br />
+  <div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+      <%= f.submit :class => 'btn btn-success'%>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,48 @@
+<%= form_with(model: @assignment, local: true) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', required: '' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :expiry_date %>
+      <% @date = @assignment.expiry_date ? @assignment.expiry_date.to_date : Date.today+1.day %>
+    <%= f.date_field :expiry_date, :value => @date, :min => Date.today+1.day, :max => Date.new(2020, 9, 30), class: 'form-control', required: '' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :school_class %>
+    <%= f.text_field :school_class, :value => @assignment.school_class.class_to_s, :readonly => true, class: 'form-control', required: '' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :subject %>
+    <%= f.text_field :subject, :value => @assignment.lecture.subject, :readonly => true, class: 'form-control', required: '' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :lecture %>
+    <%= f.text_field :lecture, :value => @assignment.lecture.name, :readonly => true, class: 'form-control', required: '' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control' %>
+  </div>
+  <br/>
+  <div>
+    <%= f.label :file %>
+    <%= f.file_field :file, class: 'form-control' %>
+  </div>
+  <br/>
+  <br/>
+  <%= f.hidden_field :teacher_id, value: @assignment.teacher.id %>
+  <%= f.hidden_field :school_class_id, value: @assignment.school_class.id %>
+  <%= f.hidden_field :lecture_id, value: @assignment.lecture.id %>
+  <div class="row">
+    <div class="col-md-4"></div>
+      <div class="col-md-5">
+        <%= f.submit :class => 'btn btn-success' %>
+      </div>
+  </div>
+<% end %>

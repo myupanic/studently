@@ -1,0 +1,4 @@
+document.getElementById('edit-form_<%= @mark.id %>').remove()
+$('#mark-row_<%= @mark.id %>').replaceWith("<%= j render @mark %>")
+$('a').removeClass("disabled")
+$('.blur-filter').removeClass('blur-filter')
